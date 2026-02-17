@@ -1,0 +1,19 @@
+{
+	"mcpServers": {
+		"playwright": {
+			"command": "npx.cmd",
+			"args": [
+				"-y",
+				"@playwright/mcp",
+				"--output-dir",
+				"C:\\Users\\hello\\OneDrive\\Desktop\\cybercom\\playwright",
+				"--allow-unrestricted-file-access",
+				"--browser",
+				"chrome"
+			],
+			"env": {
+				"DEBUG": "pw:mcp*"
+			}
+		}
+	}
+}
