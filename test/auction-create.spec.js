@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-const { BASE_URL, ADMIN_EMAIL, ADMIN_PASSWORD } = require('./config');
+const BASE_URL = "http://52.91.192.7";
 
 test.setTimeout(300000);
 
@@ -11,10 +11,10 @@ async function login(page) {
 
     if (await page.url().includes('login')) {
         const emailInput = page.getByPlaceholder(/email|username/i).or(page.getByLabel(/email|username/i)).first();
-        await emailInput.fill(ADMIN_EMAIL);
+        await emailInput.fill('admin@gmail.com');
 
         const passwordInput = page.getByPlaceholder(/password/i).or(page.getByLabel(/password/i)).first();
-        await passwordInput.fill(ADMIN_PASSWORD);
+        await passwordInput.fill('admin123');
 
         const loginButton = page.getByRole('button', { name: /login|sign in/i }).first();
         if (await loginButton.count() > 0) {
@@ -68,7 +68,7 @@ test('Create and Delete Auction', async ({ page }) => {
         console.log('Calendar header click failed, trying to just pick a date');
     }
 
-    await page.getByRole('link', { name: '17' }).first().click();
+    await page.getByRole('link', { name: '19' }).first().click();
 
     await page.locator('input[name="estimate"]').click();
     await page.locator('input[name="estimate"]').fill('12');

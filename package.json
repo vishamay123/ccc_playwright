@@ -7,14 +7,14 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "npx playwright test",
-    "test:ci": "npx playwright test --reporter=github"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
+    "@playwright/mcp": "^0.0.64",
     "@playwright/test": "^1.58.2",
     "playwright": "^1.58.2"
   },

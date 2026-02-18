@@ -1,15 +1,24 @@
-const { expect } = require('@playwright/test');
 const { BASE_URL, ADMIN_EMAIL, ADMIN_PASSWORD } = require('../config');
 
 module.exports = async function login(page) {
   await page.goto(BASE_URL);
 
-  const emailInput = page.getByPlaceholder(/email|username/i).or(page.getByLabel(/email|username/i)).first();
+  // Fill email
+  const emailInput = page
+    .getByPlaceholder(/email|username/i)
+    .or(page.getByLabel(/email|username/i))
+    .first();
+  await emailInput.waitFor({ timeout: 10000 });
   await emailInput.fill(ADMIN_EMAIL);
 
-  const passwordInput = page.getByPlaceholder(/password/i).or(page.getByLabel(/password/i)).first();
+  // Fill password
+  const passwordInput = page
+    .getByPlaceholder(/password/i)
+    .or(page.getByLabel(/password/i))
+    .first();
   await passwordInput.fill(ADMIN_PASSWORD);
 
+  // Click login button or press Enter
   const loginButton = page.getByRole('button', { name: /login|sign in/i }).first();
   if (await loginButton.count() > 0) {
     await loginButton.click();
@@ -17,13 +26,18 @@ module.exports = async function login(page) {
     await passwordInput.press('Enter');
   }
 
-  try { await page.waitForLoadState('networkidle', { timeout: 20000 }); } catch (e) { }
-
-  await Promise.race([
-    page.waitForURL(url => !url.toString().includes('login'), { timeout: 20000 }),
-    page.getByRole('button', { name: /logout|sign out/i }).waitFor({ timeout: 20000 }).catch(() => null),
-  ]).catch(async () => {
+  // Wait for navigation away from the login page
+  try {
+    await page.waitForURL((url) => !url.toString().includes('login'), { timeout: 20000 });
+  } catch {
     await page.screenshot({ path: 'login-failure.png' });
-    throw new Error('Login failed');
-  });
+    throw new Error(`Login failed — still on login page. URL: ${page.url()}`);
+  }
+
+  // Wait for page to settle
+  try {
+    await page.waitForLoadState('networkidle', { timeout: 15000 });
+  } catch {
+    // non-fatal, some apps never reach networkidle
+  }
 };

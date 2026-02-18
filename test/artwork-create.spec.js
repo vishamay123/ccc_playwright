@@ -71,8 +71,8 @@ test('Artwork Create (E2E)', async ({ page }) => {
 
     // 5) Upload Required Documents
     console.log('Uploading Reports...');
-    await page.setInputFiles('input[id="condition_report"]', 'tests/fixtures/sample.pdf');
-    await page.setInputFiles('input[id="fact_sheet"]', 'tests/fixtures/sample.pdf');
+    await page.setInputFiles('input[id="condition_report"]', 'test/fixtures/sample.pdf');
+    await page.setInputFiles('input[id="fact_sheet"]', 'test/fixtures/sample.pdf');
 
     // 6) Fill Auction Fields
     console.log('Filling Auction Fields...');
@@ -84,7 +84,7 @@ test('Artwork Create (E2E)', async ({ page }) => {
     console.log('Uploading Artwork Images...');
     await page.click('text=Artwork Files');
     await page.waitForTimeout(1000);
-    await page.setInputFiles('input[name="artworkfiles[0][file]"]', 'tests/fixtures/sample.jpg');
+    await page.setInputFiles('input[name="artworkfiles[0][file]"]', 'test/fixtures/sample.jpg');
 
     // 8) Save and Continue
     console.log('Saving...');

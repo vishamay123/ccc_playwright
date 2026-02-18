@@ -1,14 +1,5 @@
 node_modules/
-/test-results/
-/playwright-report/
-/playwright/.cache/
-*.png
-*.jpg
-*.jpeg
-*.html
-*.txt
 
-.DS_Store
-.env
-.env.local
-.github/workflows
+
+
+.github/workflow
